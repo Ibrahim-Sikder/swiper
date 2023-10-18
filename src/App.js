@@ -1,6 +1,7 @@
-import './App.css';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectCoverflow } from 'swiper/modules';
+import './App.css';
 
 import 'swiper/css';
 import 'swiper/css/autoplay';
@@ -16,21 +17,29 @@ import img7 from './assets/7.jpg';
 import img8 from './assets/8.jpg';
 
 function App() {
-  const changeTitle = (title) => {
-    const movieTitle = document.querySelectorAll('.head-2');
 
-    movieTitle.forEach(name => {
-      name.classList.remove('active');
-      if (name.classList.contains(title)) {
-        name.classList.add('active');
+  const [activeIndex, setActiveIndex] = useState(0);
+  // console.log(activeIndex)
+  const swiperRef = useRef(null);
+  const updateIndex = useCallback(
+    () => setActiveIndex(swiperRef.current.swiper.realIndex),
+    []
+  );
+  useEffect(() => {
+    const swiperInstance = swiperRef.current.swiper;
+    if (swiperInstance) {
+      swiperInstance.on('slideChange', updateIndex)
+    }
+    return () => {
+      if (swiperInstance) {
+        swiperInstance.off('slideChange', updateIndex);
       }
-    });
+    };
+  }, [updateIndex]);
 
-
-  }
   return (
-    <div className='test'>
 
+    <div className='test'>
       <Swiper
         effect={'coverflow'}
         centeredSlides={true}
@@ -50,46 +59,43 @@ function App() {
           slideShadows: true,
         }}
         modules={[EffectCoverflow, Autoplay]}
-        className="swiper_container"
+        ref={swiperRef}
       >
-        <SwiperSlide onMouseEnter={changeTitle('title-1')}>
+        <SwiperSlide>
           <img src={img1} alt="slide_image" />
         </SwiperSlide>
-        <SwiperSlide onMouseEnter={changeTitle('title-2')}>
+        <SwiperSlide>
           <img src={img2} alt="slide_image" />
         </SwiperSlide>
-        <SwiperSlide onMouseEnter={changeTitle('title-3')}>
+        <SwiperSlide>
           <img src={img3} alt="slide_image" />
         </SwiperSlide>
-        <SwiperSlide onMouseEnter={changeTitle('title-4')}>
+        <SwiperSlide>
           <img src={img4} alt="slide_image" />
         </SwiperSlide>
-        <SwiperSlide onMouseEnter={changeTitle('title-5')}>
+        <SwiperSlide>
           <img src={img5} alt="slide_image" />
         </SwiperSlide>
-        <SwiperSlide onMouseEnter={changeTitle('title-6')}>
+        <SwiperSlide>
           <img src={img6} alt="slide_image" />
         </SwiperSlide>
-        <SwiperSlide onMouseEnter={changeTitle('title-7')}>
+        <SwiperSlide>
           <img src={img7} alt="slide_image" />
         </SwiperSlide>
-        <SwiperSlide onMouseEnter={changeTitle('title-8')}>
+        <SwiperSlide>
           <img src={img8} alt="slide_image" />
         </SwiperSlide>
       </Swiper>
       <div className='last-div '>
         <h3 className='head-3'>Coming Soon</h3>
-        <h2 className='head-2 title-1 active'>Title-1</h2>
-        <h2 className='head-2 title-2'>Title-2</h2>
-        <h2 className='head-2 title-3'>Title-3</h2>
-        <h2 className='head-2 title-4'>Title-4</h2>
-        <h2 className='head-2 title-5'>Title-5</h2>
-        <h2 className='head-2 title-6'>Title-6</h2>
-        <h2 className='head-2 title-7'>Title-7</h2>
-        <h2 className='head-2 title-8'>Title-8</h2>
+        <h2 className='head-2'>
+          {activeIndex === 0 && 'Puss in Boots'} {activeIndex === 1 && 'Dragon Huntings'} {activeIndex === 2 && 'Avengers'}
+          {activeIndex === 3 && 'Bumblebee'} {activeIndex === 4 && 'Fast Curious-6'} {activeIndex === 5 && 'Avatar'}
+          {activeIndex === 6 && 'Die hart'} {activeIndex === 7 && 'BloodShit'}
+        </h2>
         <div className='last-div-2'>
           <p>2019-Movie-2h 10m</p>
-          <div>
+          <div className='span'>
             <span className='imd'>IMDb</span>
             <span className='number'>7.4</span>
           </div>
