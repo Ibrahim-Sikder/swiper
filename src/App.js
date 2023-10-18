@@ -18,6 +18,8 @@ import img8 from './assets/8.jpg';
 
 function App() {
 
+  // Set titles dynamically using state
+
   const [activeIndex, setActiveIndex] = useState(0);
   // console.log(activeIndex)
   const swiperRef = useRef(null);
@@ -39,7 +41,7 @@ function App() {
 
   return (
 
-    <div className='test'>
+    <div className='container'>
       <Swiper
         effect={'coverflow'}
         centeredSlides={true}
@@ -62,32 +64,33 @@ function App() {
         ref={swiperRef}
       >
         <SwiperSlide>
-          <img src={img1} alt="slide_image" />
+          <img src={img1} alt="" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src={img2} alt="slide_image" />
+          <img src={img2} alt="" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src={img3} alt="slide_image" />
+          <img src={img3} alt="" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src={img4} alt="slide_image" />
+          <img src={img4} alt="" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src={img5} alt="slide_image" />
+          <img src={img5} alt="" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src={img6} alt="slide_image" />
+          <img src={img6} alt="" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src={img7} alt="slide_image" />
+          <img src={img7} alt="" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src={img8} alt="slide_image" />
+          <img src={img8} alt="" />
         </SwiperSlide>
       </Swiper>
       <div className='last-div '>
         <h3 className='head-3'>Coming Soon</h3>
+        {/* Dynamic title */}
         <h2 className='head-2'>
           {activeIndex === 0 && 'Puss in Boots'} {activeIndex === 1 && 'Dragon Huntings'} {activeIndex === 2 && 'Avengers'}
           {activeIndex === 3 && 'Bumblebee'} {activeIndex === 4 && 'Fast Curious-6'} {activeIndex === 5 && 'Avatar'}

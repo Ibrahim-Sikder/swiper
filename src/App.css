@@ -44,7 +44,7 @@
 
 
 
-.test {
+.container {
   display: flex;
   margin: 100px;
 
@@ -124,7 +124,7 @@ button {
 
 
 @media only screen and (max-width: 576px) {
-  .test {
+  .container {
     display: block;
     margin: 100px;
   }
